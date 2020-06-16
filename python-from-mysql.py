@@ -1,4 +1,5 @@
 import os
+import datetime
 import pymysql
 
 username = os.getenv("C9_USER")
@@ -12,10 +13,9 @@ connection = pymysql.connect(host = "localhost",
 try:
     # Run a query
     with connection.cursor() as cursor:
-        sql = "Select * from Artist limit 5;"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        print(result)
+        row = ("Bob", 21, "2020-05-20 23:02:56")
+        cursor.execute("Insert into Friends values(%s, %s, %s);", row)
+        connection.commit()
 finally:
     # close the connection to the db
     connection.close()
